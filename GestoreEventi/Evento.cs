@@ -89,9 +89,10 @@ namespace GestoreEventi
 
         public override string ToString()
         {
-            string info = "--------- Evento ----------";
+            string info = "--------- Evento: ----------\n";
             info += $"\t Titolo: {titolo}\n";
             info += $"\t Giorno: {data.ToString("dd/MM/yyyy")}\n";
+            info += $"****************************";
 
             return info;
         }

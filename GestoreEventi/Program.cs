@@ -50,9 +50,11 @@ DateTime inputData = DateTime.Parse(Console.ReadLine());
 Console.Write("Inserisci la capienza massima per l'evento: ");
 int inputCapienzaMassima = int.Parse(Console.ReadLine());
 
-//Eventi Costruttore
+//
 
-Evento newEvento = new Evento(inputTitolo, inputData, inputCapienzaMassima);
+Evento Evento1 = new Evento(inputTitolo, inputData, inputCapienzaMassima);
 
-Console.WriteLine("How many seats would you like to reserve?");
-int userInputSeatsToReserve = int.Parse(Console.ReadLine());
+Console.WriteLine("Inserisci il numero di posti da prenotare: ");
+int inputNumeroPostiPrenotati = int.Parse(Console.ReadLine());
+
+Console.WriteLine(Evento1.ToString());
