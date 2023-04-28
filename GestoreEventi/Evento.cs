@@ -50,7 +50,7 @@ namespace GestoreEventi
             this.titolo = Titolo;
         }
         // Costruttore
-        public Evento(string titolo, DateTime data, int capienzaMassima, int numeroPostiPrenotati=0)
+        public Evento(string titolo, string data, int capienzaMassima, int numeroPostiPrenotati=0)
         {
             if (titolo == "")
             {
@@ -63,7 +63,7 @@ namespace GestoreEventi
             }
            
             this.titolo = titolo;
-            this.data = data;
+            this.data = DateTime.Parse(data);
             this.capienzaMassima = capienzaMassima;
             this.numeroPostiPrenotati = numeroPostiPrenotati;
         }
@@ -71,7 +71,7 @@ namespace GestoreEventi
         // Metodi
         public void PrenotaPosti(int numeroPrenotazioniPosti)
         {
-            if (numeroPrenotazioniPosti <= 0 || data.CompareTo(DateTime.Now) < 0)
+            if (numeroPrenotazioniPosti <= 0 || data < DateTime.Now || numeroPrenotazioniPosti + numeroPostiPrenotati > capienzaMassima)
             {
                 throw new Exception("Inserire una data ed un numero di posti valido per la prenotazione");
             }
@@ -80,7 +80,7 @@ namespace GestoreEventi
 
         public void DisdiciPosti(int numeroPrenotazioniPosti)
         {
-            if (numeroPrenotazioniPosti <= 0 || data.CompareTo(DateTime.Now) < 0)
+            if (numeroPrenotazioniPosti <= 0 || data < DateTime.Now  || numeroPrenotazioniPosti - numeroPostiPrenotati < 0)
             {
                 throw new Exception("Inserire una data ed un numero di posti valido per la cancellazione");
             }
@@ -90,8 +90,7 @@ namespace GestoreEventi
         public override string ToString()
         {
             string info = "--------- Evento: ----------\n";
-            info += $"\t Titolo: {titolo}\n";
-            info += $"\t Giorno: {data.ToString("dd/MM/yyyy")}\n";
+            info += $"\t Giorno: {data.ToString("dd/MM/yyyy")} - Titolo: {titolo}\n";
             info += $"****************************";
 
             return info;

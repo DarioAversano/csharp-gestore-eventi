@@ -45,16 +45,67 @@ Console.Write("Inserisci il titolo dell'evento: ");
 string inputTitolo = Console.ReadLine();
 
 Console.Write("Inserisci il formato data evento nel seguente modo dd/mm/yyyy: ");
-DateTime inputData = DateTime.Parse(Console.ReadLine());
+string inputData =Console.ReadLine();
 
 Console.Write("Inserisci la capienza massima per l'evento: ");
 int inputCapienzaMassima = int.Parse(Console.ReadLine());
 
-//
+/* MILESTONE 2
+1. Nel vostro programma principale Program.cs, chiedete all’utente di inserire un
+nuovo evento con tutti i parametri richiesti dal costruttore.
+2. Dopo che l’evento è stato istanziato, chiedete all’utente se e quante prenotazioni
+vuole fare e provare ad effettuarle.
+3. Stampare a video il numero di posti prenotati e quelli disponibili.
+4. Ora chiedere all’utente fintanto che lo desidera, se e quanti posti vuole disdire. Ogni
+volta che disdice dei posti, stampare i posti residui e quelli prenotati.
+Attenzione: In questa prima fase non è necessario gestire le eventuali eccezioni da
+Program.cs che potrebbero insorgere, eventualmente il programma si blocca se qualcosa
+va storto che voi avevate già previsto. Piuttosto pensate bene alla logica del vostro
+programma principale e della vostra classe Evento pensando bene alle responsabilità dei
+metodi e alla visibilità di attributi e metodi.*/
 
 Evento Evento1 = new Evento(inputTitolo, inputData, inputCapienzaMassima);
 
-Console.WriteLine("Inserisci il numero di posti da prenotare: ");
-int inputNumeroPostiPrenotati = int.Parse(Console.ReadLine());
+
+
+// Riserva Posti
+Console.WriteLine($"Vuoi prenotare dei posti per : {Evento1.GetTitolo()}");
+string utenteVuolePrenotare = Console.ReadLine().ToUpper();
+if (utenteVuolePrenotare == "SI" || utenteVuolePrenotare == "YES" || utenteVuolePrenotare == "si" || utenteVuolePrenotare == "yes")
+{
+    Console.WriteLine("Inserisci il numero di posti da prenotare: ");
+    int inputNumeroPostiPrenotati = int.Parse(Console.ReadLine());
+    Evento1.PrenotaPosti(inputNumeroPostiPrenotati);
+}
+
+
+
+Console.WriteLine($"Capienza massima all'evento: {Evento1.GetCapienzaMassima()} ");
+Console.WriteLine($"Il posto dei numero prenotati è di: {Evento1.GetNumeroPostiPrenotati()}");
+Console.WriteLine($"I posti rimanenti per l'evento sono: {Evento1.GetCapienzaMassima() - Evento1.GetNumeroPostiPrenotati()}");
+
+
+
+// Cancella Posti
+bool utenteVuoleDisdire = true;
+while (utenteVuoleDisdire)
+{
+    Console.WriteLine($"Vuoi disdire posti prenotati dell'evento: {Evento1.GetTitolo()}");
+    string chiedereSeutenteVuoleDisdire = Console.ReadLine().ToUpper();
+    if (chiedereSeutenteVuoleDisdire == "SI" || chiedereSeutenteVuoleDisdire == "YES" || chiedereSeutenteVuoleDisdire == "si" || chiedereSeutenteVuoleDisdire == "yes")
+    {
+        Console.WriteLine("Quanti posti prenotati vuoi disdire?");
+        int inputPostiDisdire = int.Parse(Console.ReadLine());
+        Evento1.DisdiciPosti(inputPostiDisdire);
+        Console.WriteLine($"Il posto dei numero prenotati è di: {Evento1.GetNumeroPostiPrenotati()}");
+        Console.WriteLine($"I posti rimanenti per l'evento sono: {Evento1.GetCapienzaMassima() - Evento1.GetNumeroPostiPrenotati()}");
+    }
+    else
+    {
+        utenteVuoleDisdire = false;
+        Console.WriteLine($"Il posto dei numero prenotati è di: {Evento1.GetNumeroPostiPrenotati()}");
+    }
 
 Console.WriteLine(Evento1.ToString());
+}
+
