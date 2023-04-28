@@ -78,13 +78,14 @@ namespace GestoreEventi
             this.numeroPostiPrenotati += numeroPrenotazioniPosti;
         }
 
-        public void DisdiciPosti(int numeroPrenotazioniPosti)
+        public void DisdiciPosti(int numeroPostiDisdetti)
         {
-            if (numeroPrenotazioniPosti <= 0 || data < DateTime.Now  || numeroPrenotazioniPosti - numeroPostiPrenotati < 0)
+            // Se cambio "|| numeroPostiDisdetti > numeroPostiPrenotati" Con "|| numeroPostiDisdetti - numeroPostiPrenotati < 0" Non funziona.
+            if (numeroPostiDisdetti <= 0 || data < DateTime.Now  || numeroPostiDisdetti > numeroPostiPrenotati)
             {
                 throw new Exception("Inserire una data ed un numero di posti valido per la cancellazione");
             }
-            this.numeroPostiPrenotati -= numeroPrenotazioniPosti;
+            this.numeroPostiPrenotati -= numeroPostiDisdetti;
         }
 
         public override string ToString()
@@ -100,7 +101,7 @@ namespace GestoreEventi
 
     }
 
-
+    
 
 
 
